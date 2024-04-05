@@ -16,6 +16,14 @@ class transform{
 	int x = 0;
 	int y = 0;
 
+	public: transform set_vector2(int x , int y)
+	{
+		transform temp;
+		temp.x = x;
+		temp.y = y;
+		return temp;
+	}
+
 	public: transform vector2(){
 		transform temp;
 		temp.x = x;
@@ -37,16 +45,20 @@ class object{
 };
 
 void  Drow(int w , int h , std::vector<object>& list){
+	bool drow_sprite = false;
 	while(true){
 		for (int i = 0; i < w; i++){
 			for (int j = 0; j < h; j++){
 				for (object obj : list){
 					if(obj.pos.x == i && obj.pos.y == j){
 						print(obj.sprite);
-					}else{
-						print("#");
+						drow_sprite = true;
 					}
 				}
+				if(drow_sprite == false){
+					print("#");
+				}
+				drow_sprite = false;
 			}
 			printl("");
 		}
@@ -54,19 +66,18 @@ void  Drow(int w , int h , std::vector<object>& list){
 		system("clear");
 	}
 }
-
+vector<object> listobj;
 int main(){
-	std::vector<object> listobj;
-	object p;
-	p.name = "Player";
-	p.sprite = "*";
-	listobj.push_back(p);
-	/*object p2;
-	p2.name = "Player2";
-	p2.sprite = "o";
-	p2.pos.x = 3;
-	p2.pos.y = 7;
-	listobj.push_back(p2);*/
+	object p1;
+	p1.name = "player1";
+	p1.sprite = "o";
+	p1.pos = transform().set_vector2(1 ,1);
+	listobj.push_back(p1);
+	//----------------------
+	p1.pos = transform().set_vector2(2 ,2);
+	p1.sprite = "*";
+	listobj.push_back(p1);
+
 	Drow(10 ,20 , listobj);
 	return 0;
 }

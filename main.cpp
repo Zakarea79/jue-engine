@@ -63,7 +63,7 @@ public:
 class GameObject
 {
 public:
-	string name = "";
+	string name = "object";
 	string sprite = "";
 
 public:
@@ -101,29 +101,16 @@ int main()
 	GameObject* p1 =  new GameObject;
 	p1->name = "player1";
 	p1->sprite = "x";
-	p1->pos = transform().set_vector2(1, 1);
 	listobj.push_back(p1);
 	//----------------------
 	inputSystem ob;
+	int x = 0, y = 0;
 	while (true)
 	{
-		switch (ob.get_input())
-		{
-		case 'w':
-			p1->pos.x = p1->pos.x - 1;
-			break;
-		case 's' :
-			p1->pos.x = p1->pos.x + 1;
-			break;
-		case 'a':
-			p1->pos.y = p1->pos.y - 1;
-			break;
-		case 'd' :
-			p1->pos.y = p1->pos.y + 1;
-			break;
-		default:
-			break;
-		}
+		char key = ob.get_input();
+		if(key == 'w') x -= 1; else if(key == 's') x += 1;
+		if(key == 'd') y += 1; else if(key == 'a') y += -1;
+		p1->pos = transform().set_vector2(x ,y);
 		Drow(" " , 10 , 20 , listobj);
 	}
 	return 0;
